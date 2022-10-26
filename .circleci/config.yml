@@ -31,9 +31,14 @@ jobs:
       - run: 
           name: Put test-link is workspace 
           command: |
+            COMMIT_MESSAGE=$(git log --format=oneline -n 1 $CIRCLE_SHA1)
+            set -- $COMMIT_MESSAGE
+            echo this is the commit message $COMMIT_MESSAGE
+            export testLink="$(echo $COMMIT_MESSAGE | awk '{print $2}')"
+            echo this is the testlink $testLink
             echo "export TestLink=$testLink" >> workspace/new-env-vars
             cat workspace/new-env-vars >> $BASH_ENV
-            jmeter -n -t JmxFile/DerivPage$COMMIT_MESSAGE.jmx -l jmeter_report.csv -e -o results_folder
+            jmeter -n -t JmxFile/DerivPage$testLink.jmx -l jmeter_report.csv -e -o results_folder
       - persist_to_workspace:
           root: workspace
           paths:
