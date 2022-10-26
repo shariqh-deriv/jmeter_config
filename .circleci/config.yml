@@ -7,11 +7,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: install appt-get
-          command: sudo apt-get update
+          name: apk update
+          command: apk update
       - run:
           name:  install git 
-          command: sudo apt-get -y install git
+          command: apk add git
       - run:
           name:  Get QA No. and Testlink message
           command: |
