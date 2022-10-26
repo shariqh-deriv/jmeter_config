@@ -31,7 +31,7 @@ jobs:
           command: |
             echo "export TestLink=$testLink" >> workspace/new-env-vars
             cat workspace/new-env-vars >> $BASH_ENV
-            jmeter -n -t JmxFile/DerivPage$TestLink.jmx -l jmeter_report.csv -e -o results_folder
+            jmeter -n -t JmxFile/DerivPage$COMMIT_MESSAGE.jmx -l jmeter_report.csv -e -o results_folder
       - persist_to_workspace:
           root: workspace
           paths:
