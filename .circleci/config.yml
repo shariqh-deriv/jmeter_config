@@ -16,6 +16,8 @@ jobs:
           name:  Get QA No. and Testlink message
           command: |
             COMMIT_MESSAGE=$(git log --format=oneline -n 1 $CIRCLE_SHA1)
+            set -- $COMMIT_MESSAGE
+            echo this is the commit message $COMMIT_MESSAGE
             echo "export QANo='$(echo -n $COMMIT_MESSAGE | grep -o '[^ ]\+$')'" >> $BASH_ENV
             echo "export testLink='$(echo $COMMIT_MESSAGE | awk '{print $2}')'" >> $BASH_ENV
       - run: 
